@@ -32,6 +32,16 @@ public class Register {
         add(component.getClass().getName(), component);
     }
 
+    void add(Class type) {
+        Object instance = null;
+        try {
+            instance = type.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        add(type.getName(), instance);
+    }
+
     public <T> Optional<T> get(Class<T> type) {
         return (Optional<T>) get(type.getName());
     }

@@ -1,14 +1,18 @@
 package ru.klimakov.nurse;
 
+import com.sun.xml.internal.ws.policy.AssertionSet;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class NurseTest {
 
+    Nurse nurse;
+
     @Test
-    public void shouldBuildRegister() {
-        Nurse nurse = new Nurse();
-        Register register = nurse.register(new Patient())
+    public void
+    shouldBuildRegister() {
+        Register register = nurse.register(Patient.class)
                 .register(new Glucose())
                 .register(new Water())
                 .build();
@@ -18,4 +22,31 @@ public class NurseTest {
         Assert.assertEquals(glucose, patient.getGlucose());
 
     }
+
+    @Before
+    public void setUp() {
+        this.nurse = new Nurse();
+    }
+
+    @Test
+    public void shouldScanPackagesForCures() {
+
+        nurse.scan("ru.klimakov.nurse");
+
+        Register reg = nurse.build();
+        Assert.assertTrue(reg.get(Glucose.class).isPresent());
+    }
+
+    @Test
+    public void shouldScanPackagesRecursivelyForCures() {
+
+        nurse.scan("ru.klimakov");
+
+        Register reg = nurse.build();
+        Assert.assertTrue(reg.get(Glucose.class).isPresent());
+        Assert.assertTrue(reg.get(Water.class).isPresent());
+        Assert.assertFalse((reg.get(Patient.class).isPresent()));
+    }
+
+
 }
