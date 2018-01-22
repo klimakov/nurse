@@ -1,6 +1,5 @@
 package ru.klimakov.nurse;
 
-import com.sun.xml.internal.ws.policy.AssertionSet;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,9 +8,14 @@ public class NurseTest {
 
     Nurse nurse;
 
+    @Before
+    public void setUp() {
+        this.nurse = new Nurse();
+    }
+
+
     @Test
-    public void
-    shouldBuildRegister() {
+    public void shouldBuildRegister() {
         Register register = nurse.register(Patient.class)
                 .register(new Glucose())
                 .register(new Water())
@@ -20,12 +24,6 @@ public class NurseTest {
         Glucose glucose = register.get(Glucose.class).get();
         Patient patient = register.get(Patient.class).get();
         Assert.assertEquals(glucose, patient.getGlucose());
-
-    }
-
-    @Before
-    public void setUp() {
-        this.nurse = new Nurse();
     }
 
     @Test

@@ -63,4 +63,13 @@ public class RegisterTest {
         Assert.assertFalse(optional.isPresent());
     }
 
+    @Test(expected = RuntimeException.class)
+    public void notInstantiableThrowsException() {
+        register.add(NotInstantiableClass.class);
+    }
+
+    class NotInstantiableClass{
+        private NotInstantiableClass(){};
+    }
+
 }
