@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<infirmary>
+    <inmate name="ru.klimakov.nurse.SimplePatient">
+        <injection cure="ru.klimakov.nurse.Glucose" name="glucose"/>
+    </inmate>
+    <inmate name="ru.klimakov.nurse.Glucose"/>
+    <inmate name="ru.klimakov.nurse.Water"/>
+</infirmary>

@@ -1,6 +1,6 @@
 package ru.klimakov.nurse;
 
-public class Patient {
+public class PatientWithInjectAnnotation {
 
     @Inject
     private Glucose glucose;

@@ -48,11 +48,11 @@ public class RegisterTest {
     @Test
     public void componentsCanBeInjectedInsideOtherComponents() {
         Glucose one = new Glucose();
-        Patient patient = new Patient();
+        PatientWithInjectAnnotation patient = new PatientWithInjectAnnotation();
         register.add(one);
         register.add(patient);
         register.inject();
-        Patient retrievedPatient = register.get(Patient.class).get();
+        PatientWithInjectAnnotation retrievedPatient = register.get(PatientWithInjectAnnotation.class).get();
         Glucose injectedOne = retrievedPatient.getGlucose();
         Assert.assertEquals(one, injectedOne);
     }

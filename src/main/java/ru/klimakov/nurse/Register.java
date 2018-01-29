@@ -61,4 +61,27 @@ public class Register {
         }
 
     }
+
+    public Infirmary createInfirmary() {
+        Infirmary infirmary = new Infirmary();
+        register.forEach((thingName, thingObject) -> {
+            Inmate inmate = new Inmate();
+            inmate.setName(thingName);
+            injectionsPlaces.keySet().stream()
+                    .filter(field -> injectionsPlaces.get(field).getClass() == thingObject.getClass())
+                    .forEach(field -> {
+                        Injection injection = new Injection();
+                        injection.setName(field.getName());
+                        injection.setCure(field.getType().getName());
+                        inmate.getInjections().add(injection);
+                    });
+
+            infirmary.getInmates().add(inmate);
+        });
+        return infirmary;
+    }
+
+    void addInjectionPlace(Field field, Object patient) {
+        injectionsPlaces.put(field, patient);
+    }
 }
